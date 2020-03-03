@@ -10,45 +10,40 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    private let padding: CGFloat = 50
+    private let spacing: CGFloat = 25
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupGreenView()
-        setupRedView()
+        setupViews()
     }
     
-    private func setupGreenView() {
+    private func setupViews() {
         view.addSubview(greenView)
+        view.addSubview(redView)
         NSLayoutConstraint.activate([
-            greenView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
-            greenView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
-            greenView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
-            greenView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50)
-        ])
-    }
-    
-    private func setupRedView() {
-        greenView.addSubview(redView)
-        NSLayoutConstraint.activate([
+            greenView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
+            greenView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: padding),
+            greenView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -padding),
+            greenView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -padding),
             redView.centerYAnchor.constraint(equalTo: greenView.centerYAnchor),
-            redView.leadingAnchor.constraint(equalTo: greenView.leadingAnchor, constant: 25),
-            redView.trailingAnchor.constraint(equalTo: greenView.trailingAnchor, constant: -25),
+            redView.leadingAnchor.constraint(equalTo: greenView.leadingAnchor, constant: spacing),
+            redView.trailingAnchor.constraint(equalTo: greenView.trailingAnchor, constant: -spacing),
             redView.heightAnchor.constraint(equalTo: greenView.heightAnchor, multiplier: 0.2)
         ])
     }
+
+    private let greenView = UIView.makeView(color: .green)
+    private let redView = UIView.makeView(color: .red)
     
-    private let greenView: UIView = {
-        let gv = UIView()
-        gv.translatesAutoresizingMaskIntoConstraints = false
-        gv.backgroundColor = .green
-        return gv
-    }()
-    
-    private let redView: UIView = {
-        let rv = UIView()
-        rv.translatesAutoresizingMaskIntoConstraints = false
-        rv.backgroundColor = .red
-        return rv
-    }()
-    
+}
+
+private extension UIView {
+    static func makeView(color: UIColor) -> UIView {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = color
+        return view
+    }
 }
 
